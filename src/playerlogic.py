@@ -28,7 +28,7 @@ class PlayerLogic:
     def loop(self):
         self.cnt += 1
         draw = True
-        if self.cnt % 100 == 0:
+        if self.cnt % 2 == 0:
             if self._left_pressed:
                 self._angle -= self._da
                 if self._angle < 0:
@@ -40,9 +40,9 @@ class PlayerLogic:
                     self._angle -= 360
 
 
-        if self.cnt == 10000:
+        if self.cnt == 200:
             self.cnt = 0
-        if self.cnt > 8000:
+        if self.cnt > 160:
             draw = False
         dx = self._vel * math.cos(math.radians(self._angle))
         dy = self._vel * math.sin(math.radians(self._angle))
