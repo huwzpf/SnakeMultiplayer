@@ -16,7 +16,7 @@ class App:
         self._running = True
         self._display = None
         self.bg = None
-        self.size = self._width, self._height = 2 * 640, 2 * 400
+        self.size = self._width, self._height = 640, 400
         self._players = []
         self._font = None
         self._text_rect = pygame.Rect(0, 0, 80, 80)
@@ -29,7 +29,7 @@ class App:
 
         self._running = True
         self._players.append(Player(self._width / 2, self._height / 2,
-                                    5, 0.01, COLOR.WHITE.value,COLOR.RED.value, self._display))
+                                    5, 0.01,COLOR.RED.value, self._display))
         self._display.fill(pygame.Color(COLOR.WHITE.value))
         self._font = pygame.font.Font("Minecraft_Russian_By_Nexon.ttf", 24)
 
@@ -46,8 +46,7 @@ class App:
     def on_render(self):
         for p in self._players:
             p.on_render(self.bg)
-        # self.show_stats()
-
+        self.show_stats()
         pygame.display.flip()
 
     def on_execute(self):
