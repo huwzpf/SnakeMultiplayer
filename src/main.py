@@ -29,7 +29,7 @@ class App:
 
         self._running = True
         self._players.append(Player(self._width / 2, self._height / 2,
-                                    5, 0.01,COLOR.RED.value, self._display))
+                                    3, 2,COLOR.RED.value, self._display))
         self._display.fill(pygame.Color(COLOR.WHITE.value))
         self._font = pygame.font.Font("Minecraft_Russian_By_Nexon.ttf", 24)
 
@@ -50,12 +50,14 @@ class App:
         pygame.display.flip()
 
     def on_execute(self):
+        clock = pygame.time.Clock()
         self.on_init()
         while self._running:
             for event in pygame.event.get():
                 self.on_event(event)
             self.on_loop()
             self.on_render()
+            clock.tick(60)
         pygame.quit()
 
     def create_window(self):
