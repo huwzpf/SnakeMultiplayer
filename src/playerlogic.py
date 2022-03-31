@@ -5,7 +5,7 @@ class PlayerLogic:
     def __init__(self, velocity):
         self._vel = velocity
         self._angle = 0
-        self._da = 10
+        self._da = 7
         self._left_pressed = False
         self._right_pressed = False
         self.cnt = 0
