@@ -29,23 +29,26 @@ class App:
 
         self._running = True
         self._players.append(Player(self._width / 2, self._height / 2,
-                                    3, 2,COLOR.RED.value, self._display))
+                                    2, 2,COLOR.RED.value, self._display))
         self._display.fill(pygame.Color(COLOR.WHITE.value))
         self._font = pygame.font.Font("Minecraft_Russian_By_Nexon.ttf", 24)
 
     def on_event(self, event):
         for p in self._players:
-            p.on_event(event)
+            if p.alive:
+                p.on_event(event)
         if event.type == pygame.QUIT:
             self._running = False
 
     def on_loop(self):
         for p in self._players:
-            p.on_loop()
+            if p.alive:
+                p.on_loop()
 
     def on_render(self):
         for p in self._players:
-            p.on_render(self.bg)
+            if p.alive:
+                p.on_render(self.bg)
         self.show_stats()
         pygame.display.flip()
 
