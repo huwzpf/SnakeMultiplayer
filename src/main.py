@@ -1,6 +1,7 @@
 import pygame
 from player import Player
 from active_player import ActivePlayer
+from bonus import Bonus
 
 from enum import Enum
 
@@ -18,7 +19,7 @@ class App:
         self._display = None
         self.bg = None
         self.size = self._width, self._height = 640, 400
-        self._players = []
+        self._entities = []
         self._font = None
         self._text_rect = pygame.Rect(0, 0, 80, 80)
 
@@ -30,43 +31,59 @@ class App:
 
         self._running = True
 
-        self._players.append(Player(200, self._height / 2,
-                                    2, 2,COLOR.GREEN.value, self._display, "player1.jpg"))
+        self._entities.append(Player(100, 200,
+                                     2, 2, COLOR.GREEN.value, self._display, "player1.jpg"))
+        self._entities.append(Player(100, 300,
+                                     2, 2, COLOR.GREEN.value, self._display, "player1.jpg"))
 
-        self._players.append(ActivePlayer(self._width / 2, self._height / 2,
-                                          2, 2, COLOR.RED.value, self._display, "player.jpg"))
+        self._entities.append(ActivePlayer(self._width / 2, self._height / 2,
+                                           2, 2, COLOR.RED.value, self._display, "player.jpg"))
+
+        self._entities.append(Bonus(200, 50, self._display, "player.jpg"))
 
         self._display.fill(pygame.Color(COLOR.WHITE.value))
         self._font = pygame.font.Font("Minecraft_Russian_By_Nexon.ttf", 24)
 
     def on_event(self, event):
-        for p in self._players:
-            if p.alive:
+        for p in self._entities:
+            if isinstance(p, Player) and not p.alive:
+                pass
+            else:
                 p.on_event(event)
         if event.type == pygame.QUIT:
             self._running = False
 
     def on_loop(self):
-        for p in self._players:
-            if p.alive:
+        for p in self._entities:
+            if isinstance(p, Player) and not p.alive:
+                pass
+            else:
                 p.on_loop()
 
     def on_render(self):
-        for p in self._players:
-            if p.alive:
+        # Draw background and tails
+        self._display.blit(self.bg, pygame.Rect(0, 0, self._width, self._height))
+        for p in self._entities:
+            if isinstance(p, Player) and not p.alive:
+                pass
+            else:
                 p.on_render(self.bg)
-        self.show_stats()
+        # self.show_stats()
         pygame.display.flip()
 
     def on_execute(self):
         clock = pygame.time.Clock()
         self.on_init()
+        cnt = 1
         while self._running:
             for event in pygame.event.get():
                 self.on_event(event)
             self.on_loop()
             self.on_render()
             clock.tick(60)
+            cnt += 1
+            if cnt == 120:
+                self._entities.pop()
         pygame.quit()
 
     def create_window(self):
@@ -75,7 +92,7 @@ class App:
         return display
 
     def show_stats(self):  # Debugger
-        displayed_text = str(self._players[0].get_angle())
+        displayed_text = str(self._entities[0].get_angle())
         text = self._font.render(displayed_text, True, COLOR.GREEN.value, COLOR.WHITE.value)
         pygame.draw.rect(self._display,COLOR.WHITE.value,self._text_rect)
         self._display.blit(text, self._text_rect)

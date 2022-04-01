@@ -1,8 +1,9 @@
 import pygame.key
 import playerlogic
+from Entity import Entity
 
 
-class Player:
+class Player(Entity):
     def __init__(self, x, y, size, velocity, color, display, txtpath):
         self.alive = True
         self._x = x
@@ -11,8 +12,6 @@ class Player:
         self._color = color
         self._display = display
         self._draw = True
-        self.texture = None
-        self._hitbox = None
         self._map_w, self._map_h = display.get_size()
         self._logicUnit = playerlogic.PlayerLogic(velocity, self._map_w, self._map_h, self._x, self._y, size)
         self.texture = pygame.image.load(txtpath).convert()
@@ -35,13 +34,5 @@ class Player:
         if self._draw:
             pygame.draw.rect(bg, self._color,
                              pygame.Rect(self._x - self._size, self._y- self._size, self._size * 2, self._size * 2))
-        # Draw background and tails
-        self._display.blit(bg, pygame.Rect(0, 0, self._map_w, self._map_h))
-        # Draw head texture on top of it
-        self.draw_head()
-
-    def draw_head(self):
-        # Update hit box coordinates
-        self._hitbox = pygame.Rect(self._x, self._y, self._w, self._h)
-        # Draw Head texture on display
+        # Draw head texture
         self._display.blit(self.texture, [self._x, self._y])
