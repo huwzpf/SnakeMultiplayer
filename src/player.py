@@ -3,7 +3,7 @@ import playerlogic
 
 
 class Player:
-    def __init__(self, x, y, size, velocity, color, display):
+    def __init__(self, x, y, size, velocity, color, display, txtpath):
         self.alive = True
         self._x = x
         self._y = y
@@ -11,27 +11,17 @@ class Player:
         self._color = color
         self._display = display
         self._draw = True
-        self._texture = None
+        self.texture = None
         self._hitbox = None
         self._map_w, self._map_h = display.get_size()
         self._logicUnit = playerlogic.PlayerLogic(velocity, self._map_w, self._map_h, self._x, self._y, size)
-        self._texture = pygame.image.load("player.jpg").convert()
+        self.texture = pygame.image.load(txtpath).convert()
 
     def get_angle(self):
         return self._logicUnit.get_angle()
 
     def on_event(self, event):
-        # Handling player input
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
-                self._logicUnit.set_left_down()
-            elif event.key == pygame.K_RIGHT:
-                self._logicUnit.set_right_down()
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_LEFT:
-                self._logicUnit.set_left_up()
-            elif event.key == pygame.K_RIGHT:
-                self._logicUnit.set_right_up()
+        pass
 
     def on_loop(self):
         collision, self._draw, dx, dy = self._logicUnit.loop()
@@ -54,4 +44,4 @@ class Player:
         # Update hit box coordinates
         self._hitbox = pygame.Rect(self._x, self._y, self._w, self._h)
         # Draw Head texture on display
-        self._display.blit(self._texture, self._hitbox)
+        self._display.blit(self.texture, [self._x, self._y])

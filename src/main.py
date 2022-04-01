@@ -1,5 +1,6 @@
 import pygame
-from player import *
+from player import Player
+from active_player import ActivePlayer
 
 from enum import Enum
 
@@ -28,8 +29,13 @@ class App:
         self.bg.fill(COLOR.WHITE.value)
 
         self._running = True
-        self._players.append(Player(self._width / 2, self._height / 2,
-                                    2, 2,COLOR.RED.value, self._display))
+
+        self._players.append(Player(200, self._height / 2,
+                                    2, 2,COLOR.GREEN.value, self._display, "player1.jpg"))
+
+        self._players.append(ActivePlayer(self._width / 2, self._height / 2,
+                                          2, 2, COLOR.RED.value, self._display, "player.jpg"))
+
         self._display.fill(pygame.Color(COLOR.WHITE.value))
         self._font = pygame.font.Font("Minecraft_Russian_By_Nexon.ttf", 24)
 
