@@ -4,6 +4,7 @@ from active_player import ActivePlayer
 from bonus import Bonus
 from typing import Final
 from enum import Enum
+from server import Server
 
 
 class COLOR(Enum):
@@ -30,6 +31,7 @@ class App:
         self._entities = []
         self._font = None
         self._text_rect = pygame.Rect(0, 0, 60, 60)
+        self._server = Server()
 
     def on_init(self):
         pygame.init()
@@ -104,7 +106,11 @@ class App:
         pygame.draw.rect(self._display, COLOR.WHITE.value, self._text_rect)
         self._display.blit(text, self._text_rect)
 
+    def communicate(self):
+        self._server.connection()
+
 
 if __name__ == "__main__":
     theApp = App()
+    theApp.communicate()
     theApp.on_execute()
