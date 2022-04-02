@@ -14,7 +14,7 @@ class Player(Entity):
         self._draw = True
         self._map_w, self._map_h = display.get_size()
         self._logicUnit = playerlogic.PlayerLogic(velocity, self._map_w, self._map_h, self._x, self._y, size)
-        self.texture = pygame.image.load(txtpath).convert()
+        self._texture = pygame.image.load(txtpath).convert()
 
     def get_angle(self):
         return self._logicUnit.get_angle()
@@ -33,6 +33,5 @@ class Player(Entity):
     def on_render(self, bg):
         if self._draw:
             pygame.draw.rect(bg, self._color,
-                             pygame.Rect(self._x - self._size, self._y- self._size, self._size * 2, self._size * 2))
-        # Draw head texture
-        self._display.blit(self.texture, [self._x, self._y])
+                             pygame.Rect(self._x - self._size, self._y - self._size, self._size * 2, self._size * 2))
+        self._display.blit(self._texture, [self._x, self._y])

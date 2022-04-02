@@ -2,7 +2,7 @@ import pygame
 from player import Player
 from active_player import ActivePlayer
 from bonus import Bonus
-
+from typing import Final
 from enum import Enum
 
 
@@ -13,36 +13,44 @@ class COLOR(Enum):
     WHITE = (255, 255, 255)
 
 
+# Constants
+VELOCITY: Final = 2
+SIZE: Final = 2
+FONT_SIZE: Final = 24
+WIDTH: Final = 640
+HEIGHT: Final = 400
+
+
 class App:
     def __init__(self):
         self._running = True
         self._display = None
-        self.bg = None
-        self.size = self._width, self._height = 640, 400
+        self._bg = None
+        self._size = self._width, self._height = WIDTH, HEIGHT
         self._entities = []
         self._font = None
-        self._text_rect = pygame.Rect(0, 0, 80, 80)
+        self._text_rect = pygame.Rect(0, 0, 60, 60)
 
     def on_init(self):
         pygame.init()
         self._display = self.create_window()
-        self.bg = pygame.surface.Surface(self.size)
-        self.bg.fill(COLOR.WHITE.value)
+        self._bg = pygame.surface.Surface(self._size)
+        self._bg.fill(COLOR.WHITE.value)
 
         self._running = True
 
         self._entities.append(Player(100, 200,
-                                     2, 2, COLOR.GREEN.value, self._display, "player1.jpg"))
+                                     SIZE, VELOCITY, COLOR.GREEN.value, self._display, "resources/player1.jpg"))
         self._entities.append(Player(100, 300,
-                                     2, 2, COLOR.GREEN.value, self._display, "player1.jpg"))
+                                     SIZE, VELOCITY, COLOR.GREEN.value, self._display, "resources/player1.jpg"))
 
-        self._entities.append(ActivePlayer(self._width / 2, self._height / 2,
-                                           2, 2, COLOR.RED.value, self._display, "player.jpg"))
+        self._entities.append(ActivePlayer(WIDTH / 2, HEIGHT / 2,
+                                           SIZE, VELOCITY, COLOR.RED.value, self._display, "resources/player.jpg"))
 
-        self._entities.append(Bonus(200, 50, self._display, "player.jpg"))
+        self._entities.append(Bonus(200, 50, self._display, "resources/player.jpg"))
 
         self._display.fill(pygame.Color(COLOR.WHITE.value))
-        self._font = pygame.font.Font("Minecraft_Russian_By_Nexon.ttf", 24)
+        self._font = pygame.font.Font("resources/font.ttf", FONT_SIZE)
 
     def on_event(self, event):
         for p in self._entities:
@@ -61,13 +69,12 @@ class App:
                 p.on_loop()
 
     def on_render(self):
-        # Draw background and tails
-        self._display.blit(self.bg, pygame.Rect(0, 0, self._width, self._height))
+        self._display.blit(self._bg, pygame.Rect(0, 0, self._width, self._height))
         for p in self._entities:
             if isinstance(p, Player) and not p.alive:
                 pass
             else:
-                p.on_render(self.bg)
+                p.on_render(self._bg)
         # self.show_stats()
         pygame.display.flip()
 
@@ -87,14 +94,14 @@ class App:
         pygame.quit()
 
     def create_window(self):
-        display = pygame.display.set_mode(self.size)
+        display = pygame.display.set_mode(self._size)
         pygame.display.set_caption("Projekt 1 PR")
         return display
 
-    def show_stats(self):  # Debugger
+    def show_stats(self):
         displayed_text = str(self._entities[0].get_angle())
         text = self._font.render(displayed_text, True, COLOR.GREEN.value, COLOR.WHITE.value)
-        pygame.draw.rect(self._display,COLOR.WHITE.value,self._text_rect)
+        pygame.draw.rect(self._display, COLOR.WHITE.value, self._text_rect)
         self._display.blit(text, self._text_rect)
 
 

@@ -1,6 +1,7 @@
 import pygame
 from Entity import Entity
 
+
 class Bonus(Entity):
     def __init__(self, x, y, display, txtpath):
         self._x = x

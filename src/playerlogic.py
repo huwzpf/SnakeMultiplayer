@@ -1,11 +1,14 @@
 import math
+from typing import Final
+
+DELTA_ANGLE: Final = 7
 
 
 class PlayerLogic:
     def __init__(self, velocity, map_w, map_h, x, y, size):
         self._vel = velocity
         self._angle = 0
-        self._da = 7
+        self._da = DELTA_ANGLE
         self._left_pressed = False
         self._right_pressed = False
         self.cnt = 0
@@ -45,7 +48,6 @@ class PlayerLogic:
                 if self._angle > 360:
                     self._angle -= 360
 
-
         if self.cnt == 200:
             self.cnt = 0
         if self.cnt > 160:
@@ -59,8 +61,6 @@ class PlayerLogic:
             dx = 0
         if not (self.map_h > self.current_y + dy > 0):
             dy = 0
-
-
 
         def upper_right(x, y, x_prev, y_prev):
             return x <= (x_prev + self.size + 1) and y >= (y_prev - self.size - 1)
