@@ -72,7 +72,6 @@ class StateUpdate:
         self.running = struct.unpack("<i", data[-4:])[0]
         self.players_data = []
         self.bonuses = []
-        print(self.running)
         if self.running != 0:
             """
             int id      4
