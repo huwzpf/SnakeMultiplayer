@@ -20,6 +20,7 @@ void prepare_updates(){
 // Cleaning after game ends
 void close_game(pthread_t* thread_id){
 	for (int i = 0; i < CLIENTS_AMOUNT; i++) sem_post(&S4);
+    sleep(1);
 	for (int i = 0; i < CLIENTS_AMOUNT; i++) pthread_join(thread_id[i],NULL);
 	// Close all semaphores
 	sem_close(&S0);
