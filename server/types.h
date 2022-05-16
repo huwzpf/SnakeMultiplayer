@@ -2,7 +2,7 @@
 #define PACKETS_H
 #include "config.h"
 
-struct bonus {
+struct __attribute__((__packed__)) bonus  {
 	int x;
 	int y;
 	int type;

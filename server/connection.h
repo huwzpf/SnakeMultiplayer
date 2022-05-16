@@ -72,7 +72,7 @@ void* client_handler(void* args) {
 	// Wait until all players connect
 	sem_wait(&S0);
 	timeout.tv_sec = 0;
-    timeout.tv_usec = 333333;
+    timeout.tv_usec = 33333;
 	memcpy(packet.data, init_arr, CLIENTS_AMOUNT*sizeof(struct player_init_data));
 	packet.session_ID = id;
 	// Send init packet

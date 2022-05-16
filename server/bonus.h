@@ -34,14 +34,23 @@ void add_bonus(){
 	qinsert(&bq,delete_bonus, i,BONUS_TIME_EXPIRED, global_counter + BONUS_TIME);
 }
 
-void delete_invincibility(int id){ states[id].invincible = 0;}
+void delete_invincibility(int id){ 
+    states[id].invincible = 0;
+    states[id].state.bonus_modifier = 0;
+}
 
-void velocity_bonus_expire(int id){ states[id].velocity = DEFAULT_VELOCITY; }
+void velocity_bonus_expire(int id){ 
+    states[id].velocity = DEFAULT_VELOCITY;
+    states[id].invincible = 1;
+    states[id].state.bonus_modifier = 2;
+    qinsert(&bq,delete_invincibility, id ,PLAYER_BONUS_EXPIRED, global_counter + 12 );
+ }
 
 void size_bonus_expire(int id){
-	states[id].state.size=1;
+	states[id].state.size = DEFAULT_SIZE;
 	states[id].invincible = 1;
-	qinsert(&bq,delete_invincibility, id ,PLAYER_BONUS_EXPIRED, global_counter + 3);
+    states[id].state.bonus_modifier = 2;
+	qinsert(&bq,delete_invincibility, id ,PLAYER_BONUS_EXPIRED, global_counter + 12 );
 }
 
 void player_collision_with_bonus(int player_number, int bonus_number){
@@ -49,17 +58,20 @@ void player_collision_with_bonus(int player_number, int bonus_number){
 	if(bq != NULL) qremove(&bq, bonus_number, BONUS_TIME_EXPIRED);
 	// Size
 	if(bonuses[bonus_number].type == 0){
-		states[player_number].state.size = 2;
+		states[player_number].state.size = DEFAULT_SIZE*2;
+        states[player_number].state.bonus_modifier = 1;
 		qinsert(&bq,size_bonus_expire, player_number ,PLAYER_BONUS_EXPIRED, global_counter + 100);
 	}
 	// Invincibility
 	else if(bonuses[bonus_number].type == 1){
 		states[player_number].invincible = 1;
+        states[player_number].state.bonus_modifier = 2;
 		qinsert(&bq,delete_invincibility, player_number ,PLAYER_BONUS_EXPIRED, global_counter + 100);
 	}
 	// Velocity 
 	else{
-		states[player_number].velocity = 3;
+		states[player_number].velocity = DEFAULT_VELOCITY*2;
+        states[player_number].state.bonus_modifier = 3;
 		qinsert(&bq,velocity_bonus_expire, player_number ,PLAYER_BONUS_EXPIRED, global_counter + 100);
 	}
 }

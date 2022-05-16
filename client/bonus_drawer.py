@@ -26,4 +26,4 @@ class BonusDrawer(Entity):
             elif bonus.type == 1:
                 self._display.blit(self._texture2, [bonus.x, bonus.y])
             elif bonus.type == 2:
-                self._display.blit(self._texture2, [bonus.x, bonus.y])
+                self._display.blit(self._texture3, [bonus.x, bonus.y])

@@ -14,16 +14,16 @@ if [[ "$1" == "-e"  ]]; then
     echo "#define WIDTH 1280" >> config.h
     echo "#define HEIGHT 720" >> config.h
     echo "#define ANGLE 7" >> config.h
-    echo "#define DEFAULT_VELOCITY 2" >> config.h
+    echo "#define DEFAULT_VELOCITY 4" >> config.h
     echo "#define MAX_GLOBAL_COUNTER 1000" >> config.h
     echo "#define MAX_PLAYERS 7" >> config.h
     echo "#define RGB 3" >> config.h
     echo "#define BUFFER_SIZE 1024" >> config.h
     echo "#define BONUS_CHANCE 0.01" >> config.h
     echo "#define BONUS_TIME 1200" >> config.h
-    echo "#define PLAYER_BONUS_TIME 100" >> config.h
-    echo "#define DEFAULT_SIZE 1.0" >> config.h
-    echo "#define BONUS_SIZE 20" >> config.h
+    echo "#define PLAYER_BONUS_TIME 200" >> config.h
+    echo "#define DEFAULT_SIZE 3.0" >> config.h
+    echo "#define BONUS_SIZE 10" >> config.h
     echo "#define GAP_FREQ 200" >> config.h
     echo "#define BUFFER_SIZE_SMALL 64" >> config.h
     echo "#define CLIENTS_AMOUNT ${2}" >> config.h

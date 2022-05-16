@@ -69,32 +69,34 @@ class BonusState:
 
 class StateUpdate:
     def __init__(self, data, player_count):
-        self.running = struct.unpack("<i", data[-4:])
+        self.running = struct.unpack("<i", data[-4:])[0]
         self.players_data = []
         self.bonuses = []
-        """
-        int id      4
-        int alive   4
-        int draw    4
-        double dx   8
-        double dy   8
-        double size 8
-        int bonus   4
-        ----------------+
-                    40 bytes -----------------------|                        
-                                                    V
-        """
-        it_p = struct.iter_unpack("<iiidddi", data[:(40 * player_count)])
-        """
-        int x
-        int y
-        int type
-        int active
-        """
-        it_b = struct.iter_unpack("<iiii", data[(40 * player_count):-4])
-        while True:
-            try:
-                self.players_data.append(PlayerState(list(next(it_p))))
-                self.bonuses.append(BonusState(list(next(it_b))))
-            except StopIteration:
-                break
+        print(self.running)
+        if self.running != 0:
+            """
+            int id      4
+            int alive   4
+            int draw    4
+            double dx   8
+            double dy   8
+            double size 8
+            int bonus   4
+            ----------------+
+                        40 bytes -----------------------|                        
+                                                        V
+            """
+            it_p = struct.iter_unpack("<iiidddi", data[:(40 * player_count)])
+            """
+            int x
+            int y
+            int type
+            int active
+            """
+            it_b = struct.iter_unpack("<iiii", data[(40 * player_count):-4])
+            while True:
+                try:
+                    self.players_data.append(PlayerState(list(next(it_p))))
+                    self.bonuses.append(BonusState(list(next(it_b))))
+                except StopIteration:
+                    break

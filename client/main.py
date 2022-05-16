@@ -32,7 +32,7 @@ class App:
         self._bg = pygame.surface.Surface(self._size)
         self._bg.fill(COLOR.WHITE.value)
         self._display.fill(pygame.Color(COLOR.WHITE.value))
-        self._font = pygame.font.Font("client/resources/font.ttf", FONT_SIZE)
+        self._font = pygame.font.Font("resources/font.ttf", FONT_SIZE)
 
         # establish connection and display lobby
         self._server.connection_lobby(self.show_lobby_screen, self.refresh_window)
@@ -45,19 +45,19 @@ class App:
                 self._entities.append(ActivePlayer(init_data.players_data[i].ID, init_data.players_data[i].start_x,
                                                    init_data.players_data[i].start_y, init_data.players_data[i].size,
                                                    tuple(init_data.players_data[i].color),
-                                                   self._display, "client/resources/active_player.jpg",
-                                                   "client/resources/active_player_b1.jpg",
-                                                   "client/resources/active_player_b2.jpg",
-                                                   "client/resources/active_player_b3.jpg", self._server))
+                                                   self._display, "resources/active_player.jpg",
+                                                   "resources/active_player_b1.jpg",
+                                                   "resources/active_player_b2.jpg",
+                                                   "resources/active_player_b3.jpg", self._server))
             else:
                 self._entities.append(Player(init_data.players_data[i].ID, init_data.players_data[i].start_x,
                                              init_data.players_data[i].start_y, init_data.players_data[i].size,
                                              tuple(init_data.players_data[i].color),
-                                             self._display, "client/resources/player.jpg",
-                                             "client/resources/player_b1.jpg", "client/resources/player_b2.jpg",
-                                             "client/resources/player_b3.jpg", self._server))
-        self._entities.append(BonusDrawer(self._display, "client/resources/bonus1.jpg", "client/resources/bonus2.jpg",
-                                          "client/resources/bonus3.jpg", self._server))
+                                             self._display, "resources/player.jpg",
+                                             "resources/player_b1.jpg", "resources/player_b2.jpg",
+                                             "resources/player_b3.jpg", self._server))
+        self._entities.append(BonusDrawer(self._display, "resources/bonus1.jpg", "resources/bonus2.jpg",
+                                          "resources/bonus3.jpg", self._server))
 
         self._running = True
 
@@ -74,11 +74,12 @@ class App:
         if self._server.loop() == 0:
             self._leaderboard = self._server.recive_leaderboard()
             self._running = False
-        for p in self._entities:
-            if isinstance(p, Player) and not p.alive:
-                pass
-            else:
-                p.on_loop()
+        else:
+            for p in self._entities:
+                if isinstance(p, Player) and not p.alive:
+                    pass
+                else:
+                    p.on_loop()
 
     def on_render(self):
         self._display.blit(self._bg, pygame.Rect(0, 0, self._width, self._height))
@@ -119,13 +120,13 @@ class App:
         return display
 
     def show_lobby_screen(self, current, target):
-        text_rect = pygame.Rect(WIDTH / 4, 50, WIDTH / 2, 50)
+        text_rect = pygame.Rect(WIDTH * 0.4, 50,  WIDTH * 0.6, 50)
         displayed_text = "Waiting for players"
         text = self._font.render(displayed_text, True, COLOR.RED.value, COLOR.WHITE.value)
         self._display.blit(text, text_rect)
         displayed_text = f"{current} / {target} players"
         text = self._font.render(displayed_text, True, COLOR.RED.value, COLOR.WHITE.value)
-        self._display.blit(text, text_rect.move(text_rect.x, text_rect.y + 100))
+        self._display.blit(text, text_rect.move(0, text_rect.y + 100))
         pygame.display.flip()
 
     def show_stats(self):

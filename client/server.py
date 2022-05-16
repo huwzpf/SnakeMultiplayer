@@ -55,7 +55,6 @@ class Server:
 
     def connection_lobby(self, show_lobby, refresh):
         data = self._client.recv(9).decode(self._format)
-        # print(f"Received: {data}")
         current = 0
         target = 1
         while current < target:
@@ -96,7 +95,7 @@ class Server:
         self._update = StateUpdate(data, self.init_data.player_count)
         self._prev_left_pressed = self._left_pressed
         self._prev_right_pressed = self._right_pressed
-        return self._update.running[0]
+        return self._update.running
 
     def recive_leaderboard(self):
         """
@@ -105,7 +104,8 @@ class Server:
         data_format = "<"
         for i in range(self.init_data.player_count):
             data_format += "i"
-        data = self._client.recv(self._buffer_size)
+        data = self._client.recv(self.init_data.player_count*4)
+        print(len(data))
         leaderboard = struct.unpack(data_format, data)
         return leaderboard
 
