@@ -46,16 +46,16 @@ class App:
                                                    init_data.players_data[i].start_y, init_data.players_data[i].size,
                                                    tuple(init_data.players_data[i].color),
                                                    self._display, "client/resources/active_player.jpg",
-                                                   "client/resources/active_player.jpg",
-                                                   "client/resources/active_player.jpg",
-                                                   "client/resources/active_player.jpg", self._server))
+                                                   "client/resources/active_player_b1.jpg",
+                                                   "client/resources/active_player_b2.jpg",
+                                                   "client/resources/active_player_b3.jpg", self._server))
             else:
                 self._entities.append(Player(init_data.players_data[i].ID, init_data.players_data[i].start_x,
                                              init_data.players_data[i].start_y, init_data.players_data[i].size,
                                              tuple(init_data.players_data[i].color),
                                              self._display, "client/resources/player.jpg",
-                                             "client/resources/player.jpg", "client/resources/player.jpg",
-                                             "client/resources/player.jpg", self._server))
+                                             "client/resources/player_b1.jpg", "client/resources/player_b2.jpg",
+                                             "client/resources/player_b3.jpg", self._server))
         self._entities.append(BonusDrawer(self._display, "client/resources/bonus1.jpg", "client/resources/bonus2.jpg",
                                           "client/resources/bonus3.jpg", self._server))
 
