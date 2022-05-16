@@ -24,6 +24,7 @@ if [[ "$1" == "-e"  ]]; then
     echo "#define PLAYER_BONUS_TIME 100" >> config.h
     echo "#define DEFAULT_SIZE 1.0" >> config.h
     echo "#define BONUS_SIZE 20" >> config.h
+    echo "#define GAP_FREQ 200" >> config.h
     echo "#define BUFFER_SIZE_SMALL 64" >> config.h
     echo "#define CLIENTS_AMOUNT ${2}" >> config.h
     echo "const char* IP = \"${3}\";" >> config.h

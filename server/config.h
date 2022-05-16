@@ -15,6 +15,7 @@
 #define PLAYER_BONUS_TIME 100
 #define DEFAULT_SIZE 1.0
 #define BONUS_SIZE 20
+#define GAP_FREQ 200
 #define BUFFER_SIZE_SMALL 64
 #define CLIENTS_AMOUNT 3
 const char* IP = "192.168.0.234";
