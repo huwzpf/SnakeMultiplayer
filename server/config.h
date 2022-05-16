@@ -5,17 +5,18 @@
 #define WIDTH 1280
 #define HEIGHT 720
 #define ANGLE 7
-#define DEFAULT_VELOCITY 2
+#define DEFAULT_VELOCITY 4
 #define MAX_GLOBAL_COUNTER 1000
 #define MAX_PLAYERS 7
 #define RGB 3
 #define BUFFER_SIZE 1024
 #define BONUS_CHANCE 0.01
 #define BONUS_TIME 1200
-#define PLAYER_BONUS_TIME 100
-#define DEFAULT_SIZE 1.0
-#define BONUS_SIZE 20
+#define PLAYER_BONUS_TIME 200
+#define DEFAULT_SIZE 3.0
+#define BONUS_SIZE 10
+#define GAP_FREQ 200
 #define BUFFER_SIZE_SMALL 64
-#define CLIENTS_AMOUNT 3
+#define CLIENTS_AMOUNT 2
 const char* IP = "192.168.0.234";
 #endif
