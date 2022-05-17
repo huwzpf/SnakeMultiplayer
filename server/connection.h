@@ -88,7 +88,7 @@ void* client_handler(void* args) {
 		int x; // recv msg code
 		// Conenction succesful
 		while (1) {
-			setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
+			//setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
             if (connected) {
 				x = recv(sock, &in, sizeof(struct player_input),0);
 				if(x == 0){
