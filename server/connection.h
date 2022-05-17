@@ -132,6 +132,7 @@ void* client_handler(void* args) {
 		}
 	}
 	sem_wait(&S4);
+	sleep(1);
 	send(sock, &scoreboard,CLIENTS_AMOUNT*sizeof(int), 0);
 	shutdown(sock,2);
 	pthread_exit(NULL);

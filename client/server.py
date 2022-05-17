@@ -105,6 +105,12 @@ class Server:
         for i in range(self.init_data.player_count):
             data_format += "i"
         data = self._client.recv(self.init_data.player_count*4)
+        print(data,len(data))
+        counter = 100
+        while len(data) == 0 and counter >= 0:
+            data = self._client.recv(self.init_data.player_count*4)
+            counter-=1
+            print(data,len(data),counter)
         leaderboard = struct.unpack(data_format, data)
         return leaderboard
 

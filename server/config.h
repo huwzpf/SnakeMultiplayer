@@ -18,5 +18,5 @@
 #define GAP_FREQ 200
 #define BUFFER_SIZE_SMALL 64
 #define CLIENTS_AMOUNT 2
-const char* IP = "192.168.0.234";
+const char* IP = "192.168.43.140";
 #endif
