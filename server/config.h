@@ -17,6 +17,6 @@
 #define BONUS_SIZE 10
 #define GAP_FREQ 200
 #define BUFFER_SIZE_SMALL 64
-#define CLIENTS_AMOUNT 2
+#define CLIENTS_AMOUNT 1
 const char* IP = "192.168.43.140";
 #endif

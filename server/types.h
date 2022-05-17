@@ -3,10 +3,10 @@
 #include "config.h"
 
 struct __attribute__((__packed__)) bonus  {
-	int x;
-	int y;
-	int type;
-	int active;
+	unsigned short x;
+	unsigned short y;
+	char type;
+	char active;
 };
 
 typedef enum key_state {
@@ -31,13 +31,13 @@ struct __attribute__((__packed__)) vector {
 };
 
 struct __attribute__((__packed__)) player_state {
-	int ID;
-	int alive;
-	int draw;
-	double dx;
-	double dy;
-	double size;
-	int bonus_modifier;
+	char ID;
+	char alive;
+	char draw;
+	float dx;
+	float dy;
+	float size;
+	char bonus_modifier;
 };
 
 struct __attribute__((__packed__)) player_state_2 {
@@ -49,7 +49,7 @@ struct __attribute__((__packed__)) player_state_2 {
 struct __attribute__((__packed__)) state_update {
 	struct player_state player_states[CLIENTS_AMOUNT];
 	struct bonus bonuses[CLIENTS_AMOUNT];
-	int running;
+	char running;
 };
 
 struct __attribute__((__packed__)) player_init_data {
